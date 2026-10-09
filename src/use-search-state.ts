@@ -2,7 +2,7 @@ import { useRouter, useSearch } from "@tanstack/react-router";
 import type { AnyRouter } from "@tanstack/react-router";
 import { useCallback, useMemo, useRef, useSyncExternalStore } from "react";
 
-import { searchDefaults } from "./search-params.js";
+import { searchDefaults } from "./schema.js";
 
 /**
  * nuqs-style URL state on top of TanStack Router: the route's `validateSearch` is the parser,

@@ -1,6 +1,6 @@
 {
   "name": "tanstack-url-state",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "nuqs-style URL search state for TanStack Router, typed by each route's validateSearch",
   "license": "MIT",
   "type": "module",
@@ -8,14 +8,22 @@
     "type": "git",
     "url": "git+https://github.com/B0redDev/tanstack-url-state.git"
   },
-  "keywords": ["tanstack-router", "search-params", "url-state", "react", "zod"],
+  "keywords": [
+    "tanstack-router",
+    "search-params",
+    "url-state",
+    "react",
+    "zod"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",

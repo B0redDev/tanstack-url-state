@@ -54,7 +54,27 @@ Options, per hook or per call:
 | `scroll` | `false` | Scroll to the top after the update. |
 | `debounce` | `0` | Milliseconds to wait before writing the URL; the state updates immediately. |
 
+## Lists: pagination and sort
+
+```tsx
+import { pagination, searchParams, sortParam } from "tanstack-url-state";
+
+export const Route = createFileRoute("/videos")({
+  ...searchParams({
+    ...pagination(), // page (default 1), perPage (default 20, at most 100)
+    sort: sortParam(["title", "publishDate"], "-publishDate"), // "title" | "-title" | …
+  }),
+});
+```
+
+- `pagination({ perPage, maxPerPage })` gives `page` and `perPage` with defaults (kept out of the URL) and a fallback for junk such as `?page=abc`.
+- `sortParam(sorts, fallback?)` accepts `field` and `-field` (descending) for every field in `sorts`, which may list bare or signed names; anything else reads as `fallback`, or as no sort.
+
 `searchDefaults(schema)` returns the defaulted keys of a zod object schema, if you need them elsewhere.
+
+## Bundle size
+
+ESM only, one module per concern, `"sideEffects": false`: you ship what you import. The schema helpers (`pagination`, `sortParam`, `searchDefaults`) need only `zod`; `searchParams` adds the router's `stripSearchParams`; the hooks need React and the router and never pull the route helpers. A test bundles each group to keep it that way.
 
 ## License
 
