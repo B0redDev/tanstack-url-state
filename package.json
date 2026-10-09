@@ -1,0 +1,42 @@
+{
+  "name": "@netaddictionsrl/tanstack-search-state",
+  "version": "0.1.0",
+  "description": "nuqs-style URL search state for TanStack Router, typed by each route's validateSearch",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netaddictionsrl/tanstack-search-state.git"
+  },
+  "keywords": ["tanstack-router", "search-params", "url-state", "react", "zod"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "prepublishOnly": "bun run typecheck && bun test && bun run build"
+  },
+  "peerDependencies": {
+    "@tanstack/react-router": "^1.170.41",
+    "react": "^19.3.0",
+    "zod": "^4.6.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^20.14.6",
+    "@types/bun": "^1.4.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
