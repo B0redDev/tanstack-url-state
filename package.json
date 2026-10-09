@@ -1,12 +1,12 @@
 {
-  "name": "@netaddictionsrl/tanstack-search-state",
+  "name": "@b0reddev/tanstack-search-state",
   "version": "0.1.0",
   "description": "nuqs-style URL search state for TanStack Router, typed by each route's validateSearch",
   "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/netaddictionsrl/tanstack-search-state.git"
+    "url": "git+https://github.com/B0redDev/tanstack-search-state.git"
   },
   "keywords": ["tanstack-router", "search-params", "url-state", "react", "zod"],
   "exports": {

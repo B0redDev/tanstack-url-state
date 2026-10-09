@@ -1,9 +1,9 @@
-# @netaddictionsrl/tanstack-search-state
+# @b0reddev/tanstack-search-state
 
 URL search params as React state for [TanStack Router](https://tanstack.com/router), in the style of [nuqs](https://nuqs.dev). The route's own `validateSearch` is the parser, so every key is typed once, links stay type-safe, and there is no second set of parsers to keep in sync.
 
 ```sh
-bun add @netaddictionsrl/tanstack-search-state
+bun add @b0reddev/tanstack-search-state
 ```
 
 Peer dependencies: `@tanstack/react-router` ^1.170, `react` ≥ 18, `zod` ^4.
@@ -12,7 +12,7 @@ Peer dependencies: `@tanstack/react-router` ^1.170, `react` ≥ 18, `zod` ^4.
 
 ```tsx
 import { createFileRoute } from "@tanstack/react-router";
-import { searchParams } from "@netaddictionsrl/tanstack-search-state";
+import { searchParams } from "@b0reddev/tanstack-search-state";
 import { z } from "zod";
 
 export const Route = createFileRoute("/settings")({
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/settings")({
 ## Read and write
 
 ```tsx
-import { useSearchState, useSearchStates } from "@netaddictionsrl/tanstack-search-state";
+import { useSearchState, useSearchStates } from "@b0reddev/tanstack-search-state";
 
 function SettingsRoute() {
   const [section, setSection] = useSearchState(Route, "section");
