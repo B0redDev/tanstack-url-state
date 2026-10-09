@@ -1,6 +1,6 @@
 {
   "name": "tanstack-url-state",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "nuqs-style URL search state for TanStack Router, typed by each route's validateSearch",
   "license": "MIT",
   "type": "module",
@@ -24,19 +24,22 @@
     "prepublishOnly": "bun run typecheck && bun test && bun run build"
   },
   "peerDependencies": {
-    "@tanstack/react-router": "^1.170.41",
-    "react": "^19.3.0",
-    "zod": "^4.6.5"
+    "@tanstack/react-router": "^1.170.0",
+    "react": ">=18",
+    "zod": "^4.0.0"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "@happy-dom/global-registrator": "^20.14.6",
+    "@tanstack/react-router": "^1.170.41",
     "@types/bun": "^1.4.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "zod": "^4.6.5"
   }
 }
