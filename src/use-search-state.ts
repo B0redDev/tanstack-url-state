@@ -38,7 +38,7 @@ let pending = EMPTY;
 let queued: { router: AnyRouter; push: boolean; scroll: boolean } | null = null;
 let timer: ReturnType<typeof setTimeout> | undefined;
 let nextFlush: Promise<void> | null = null;
-let resolveFlush: (() => void) | undefined;
+let settleFlush: { resolve: () => void; reject: (error: unknown) => void } | undefined;
 const listeners = new Set<() => void>();
 
 const subscribe = (listener: () => void) => {
@@ -55,13 +55,15 @@ const emit = () => {
 const isEmpty = (value: unknown) =>
   value === null || value === undefined || value === "" || (Array.isArray(value) && value.length === 0);
 
+// Runs from a timer, so it never throws: a failed navigation rejects the setters' promise instead.
 async function flush() {
   timer = undefined;
   const sent = pending;
   const job = queued;
-  const resolve = resolveFlush;
+  const settle = settleFlush;
   queued = null;
   nextFlush = null;
+  let failure: { error: unknown } | undefined;
   try {
     if (job) {
       const patch = Object.fromEntries(
@@ -74,12 +76,19 @@ async function flush() {
         search: (prev: Record<string, unknown>) => ({ ...prev, ...patch }),
       } as never);
     }
+  } catch (error) {
+    failure = { error };
   } finally {
-    // The URL now owns what was sent; keep only values set again while navigating.
+    // The URL now owns what was sent (or kept its old values if navigating failed);
+    // keep only values set again while navigating.
     const rest = Object.fromEntries(Object.entries(pending).filter(([key, value]) => sent[key] !== value));
     pending = Object.keys(rest).length > 0 ? rest : EMPTY;
     emit();
-    resolve?.();
+    if (failure) {
+      settle?.reject(failure.error);
+    } else {
+      settle?.resolve();
+    }
   }
 }
 
@@ -90,8 +99,8 @@ function enqueue(router: AnyRouter, patch: Record<string, unknown>, options: Sea
     push: queued?.push === true || options.history === "push",
     scroll: queued?.scroll === true || options.scroll === true,
   };
-  nextFlush ??= new Promise<void>((resolve) => {
-    resolveFlush = resolve;
+  nextFlush ??= new Promise<void>((resolve, reject) => {
+    settleFlush = { resolve, reject };
   });
   emit();
   clearTimeout(timer);

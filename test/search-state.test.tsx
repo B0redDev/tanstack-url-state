@@ -125,4 +125,19 @@ describe("useSearchStates", () => {
     });
     expect(context.router.state.location.search).toEqual({ q: "ro" });
   });
+
+  test("a failed navigation rejects the setter's promise and the state falls back to the URL", async () => {
+    const context = setup("/?q=rome");
+    await mount(context);
+    context.router.navigate = () => Promise.reject(new Error("navigation failed"));
+    let flushed: Promise<void> | undefined;
+    act(() => {
+      flushed = context.actions.set?.({ q: "milan" });
+    });
+    expect(context.seen.values?.q).toBe("milan");
+    await act(async () => {
+      await expect(flushed).rejects.toThrow("navigation failed");
+    });
+    expect(context.seen.values?.q).toBe("rome");
+  });
 });

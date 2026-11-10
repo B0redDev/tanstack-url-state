@@ -44,7 +44,7 @@ function SettingsRoute() {
 - **Optimistic:** every hook reading a key sees the new value at once, before the URL changes.
 - **Batched:** updates in the same tick (or inside a `debounce` window) become one navigation.
 - **Removal:** `null`, `undefined`, `""` and `[]` remove the key, which then reads as its default.
-- **Setters return a promise** that resolves once the URL holds the update.
+- **Setters return a promise** that resolves once the URL holds the update, or rejects with the router's error if the navigation fails (the state then reads the URL again).
 
 Options, per hook or per call:
 
