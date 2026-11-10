@@ -1,6 +1,6 @@
 {
   "name": "tanstack-url-state",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "nuqs-style URL search state for TanStack Router, typed by each route's validateSearch",
   "license": "MIT",
   "type": "module",
